@@ -41,6 +41,8 @@ jobs:
       - name: Sleep for 60 seconds
         run: sleep 60s
         shell: bash
+      - name: Running behave test
+        run: behave
       - name: Terraform Destroy
         id: destroy
         run: terraform destroy -auto-approve
