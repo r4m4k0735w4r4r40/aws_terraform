@@ -3,10 +3,14 @@ import pytest
 from moto import mock_dynamodb
 from lambdas import booking
 from lambdas import booking_history
-from boto3.dynamodb.conditions import Attr
-
+import time
+@pytest.fixture
+def auth_token():
+    token = str(int(time.time())+3600)
+    token += ":test"
+    return token
 @mock_dynamodb
-def test_booking_and_booking_history_lambda():
+def test_booking_and_booking_history_lambda(auth_token):
     ddb_client = boto3.resource('dynamodb')
     table_name = 'ticket_data'
     table = ddb_client.create_table(TableName=table_name,
@@ -17,7 +21,7 @@ def test_booking_and_booking_history_lambda():
                                         'WriteCapacityUnits': 5
                                     })
     data = {
-        'Authorization':"1659436707:test",
+        'Authorization':auth_token,
         'body-json':{
             'bid':1001,
             'time':'07:00',
@@ -46,7 +50,7 @@ def test_booking_and_booking_history_lambda():
     res = booking.lambda_handler(data,{})
     assert res['status'] == 403,res
     data = {
-        'Authorization':"1659436707:test",
+        'Authorization':auth_token,
         'body-json':{
             'bid':1001,
             'date':'05-08-2022'
@@ -57,13 +61,13 @@ def test_booking_and_booking_history_lambda():
 
     # Testing booking history
     data = {
-        'Authorization':"1659436707:test",
+        'Authorization':auth_token,
     }
     res = booking_history.lambda_handler(data,{})
     assert res['status'] == 200,res
 
     data = {
-        'Authorization':"1659436707:test1",
+        'Authorization':auth_token,
     }
     res = booking_history.lambda_handler(data,{})
     assert res['status'] == 200,res
