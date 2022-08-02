@@ -17,20 +17,18 @@ def post_data(context,uname,passwd):
 @when("given data {bid} '{time}' '{date}'")
 def post_data(context,bid,time,date):
     data = {'user_name': 'test', 'password': 'passwd'}
-    res = invoke_lambda(context.arn,{'body-json':data})
-    # res = json.load(res)
+    res = invoke_lambda('signin_lambda',{'body-json':data})
     token = res['auth_token']
     data = {'bid':bid,'time':time,'date':date}
     context.res = invoke_lambda(context.arn,{'Authorization':token,'body-json':data})
 @when("requested for history")
 def post_data(context):
     data = {'user_name': 'test', 'password': 'passwd'}
-    res = invoke_lambda(context.arn,{'body-json':data})
-    # res = json.load(res)
+    res = invoke_lambda('signin_lambda',{'body-json':data})
     token = res['auth_token']
     context.res = invoke_lambda(context.arn,{'Authorization':token})
 
 @then("the {end} response is {num}")
 def the_response(context,end, num):
-    # assert context.res['status'] == int(num), context.res
-    assert False,context.res
+    assert context.res['status'] == int(num), context.res['status']
+    # assert False,context.res

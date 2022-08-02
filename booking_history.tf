@@ -57,7 +57,7 @@ data "archive_file" "booking_history_zip" {
 }
 
 resource "aws_lambda_function" "booking_his_lambda" {
-  filename = local.booking_zip_path
+  filename = local.booking_his__zip_path
   function_name = "booking_his_lambda"
   role          = aws_iam_role.booking_history_role.arn
   handler = "booking_history.lambda_handler"

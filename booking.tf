@@ -32,7 +32,6 @@ EOF
 }
 resource "aws_iam_role" "booking_role" {
   name = "booking_role"
-#  assume_role_policy = file("/policies/lambda_assume_role.json")
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -59,7 +58,7 @@ data "archive_file" "booking_zip_file" {
 resource "aws_lambda_function" "booking_lambda" {
   filename = local.booking_zip_path
   function_name = "booking_lambda"
-  role          = aws_iam_role.signin_role.arn
+  role          = aws_iam_role.booking_role.arn
   handler = "booking.lambda_handler"
 
   source_code_hash = filebase64sha256(local.booking_file_path)
