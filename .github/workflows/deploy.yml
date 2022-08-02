@@ -38,9 +38,9 @@ jobs:
       - name: Terraform apply
         id: apply
         run: terraform apply -auto-approve
-      - name: Sleep for 60 seconds
-        run: sleep 60s
-        shell: bash
+#      - name: Sleep for 60 seconds
+#        run: sleep 60s
+#        shell: bash
       - name: Running behave test
         run: behave
       - name: Terraform Destroy
