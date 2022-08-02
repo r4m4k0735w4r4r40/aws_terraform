@@ -4,7 +4,6 @@ from behave import *
 @given("interface arn '{arn}'")
 def sign_up_in(context,arn):
     context.arn = arn
-    print(context.config.userdata['token'])
 
 @when("given data '{uname}' '{passwd}' '{mail}'")
 def post_data(context,uname,passwd,mail):
