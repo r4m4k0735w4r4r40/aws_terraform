@@ -20,7 +20,7 @@ def post_data(context,uname,passwd):
 def post_data(context,bid,time,date):
     data = {'user_name': 'test', 'password': 'passwd'}
     res = invoke_lambda(context.arn,{'body-json':data})
-    res = json.load(res)
+    # res = json.load(res)
     token = res['auth_token']
     data = {'bid':bid,'time':time,'date':date}
     context.res = invoke_lambda(context.arn,{'Authorization':token,'body-json':data})
@@ -28,7 +28,7 @@ def post_data(context,bid,time,date):
 def post_data(context):
     data = {'user_name': 'test', 'password': 'passwd'}
     res = invoke_lambda(context.arn,{'body-json':data})
-    res = json.load(res)
+    # res = json.load(res)
     token = res['auth_token']
     context.res = invoke_lambda(context.arn,{'Authorization':token})
 
