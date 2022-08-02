@@ -22,7 +22,7 @@ def test_signup_lambda():
         }
     }
     res = sign_up.lambda_handler(data,{})
-    assert res['status'] == 200,res['status']
+    assert res['status'] == 200,res
     data = {
         'body-json':{
             'user_name':'test',
@@ -30,4 +30,4 @@ def test_signup_lambda():
         }
     }
     res = sign_up.lambda_handler(data,{})
-    assert res['status'] == 400,res['status']
+    assert res['status'] == 400,res

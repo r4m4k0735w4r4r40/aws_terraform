@@ -29,14 +29,14 @@ def test_signup_lambda():
         }
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 200,res['status']
+    assert res['status'] == 200,res
     data = {
         'body-json':{
             'user_name':'test'
         }
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 400,res['status']
+    assert res['status'] == 400,res
     data = {
         'body-json':{
             'user_name':'test',
@@ -44,7 +44,7 @@ def test_signup_lambda():
         }
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 403,res['status']
+    assert res['status'] == 403,res
     data = {
         'body-json':{
             'user_name':'test1',
@@ -52,4 +52,4 @@ def test_signup_lambda():
         }
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 403,res['status']
+    assert res['status'] == 403,res
