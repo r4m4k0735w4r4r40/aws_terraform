@@ -27,21 +27,21 @@ jobs:
         run: coverage run --source=lambdas -m pytest -s -v
       - name: Checking coverage
         run: coverage report --fail-under=100
-#      - name: HashiCorp - Setup Terraform
-#        uses: hashicorp/setup-terraform@v2.0.0
-#      - name: Terraform Init
-#        id: init
-#        run: terraform init
-#      - name: Terraform Plan
-#        id: plan
-#        run: terraform plan
-#      - name: Terraform apply
-#        id: apply
-#        run: terraform apply -auto-approve
-#      - name: Sleep for 60 seconds
-#        run: sleep 60s
-#        shell: bash
-#      - name: Terraform Destroy
-#        id: destroy
-#        run: terraform destroy -auto-approve
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.0
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan
+      - name: Terraform apply
+        id: apply
+        run: terraform apply -auto-approve
+      - name: Sleep for 60 seconds
+        run: sleep 60s
+        shell: bash
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve
       - run: echo "Job completed."
