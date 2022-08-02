@@ -25,18 +25,11 @@ def lambda_handler(event, context):
         })
     user_name = token[ind+1:]
     tickets_table = dynamodb.Table('ticket_data')
-
-    try:
-        response = tickets_table.scan(
+    response = tickets_table.scan(
             FilterExpression=Attr('user_name').eq(user_name)
-        )
-        # print(response)
-        valid = False
-        if response['Items']:
-            valid = True
-        if len(response['Items']) == 0:
-            valid = False
-    except:
+    )
+    valid = True
+    if len(response['Items']) == 0:
         valid = False
     if not valid:
         return {

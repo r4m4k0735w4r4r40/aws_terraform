@@ -61,6 +61,10 @@ resource "aws_lambda_function" "signup_lambda" {
 
   runtime = "python3.8"
 }
+data "aws_caller_identity" "current" {}
+output "account" {
+  value = data.aws_caller_identity.current.account_id
+}
 
 output "signup_arn" {
   value = aws_lambda_function.signup_lambda.arn

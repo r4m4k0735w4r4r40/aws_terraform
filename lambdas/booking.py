@@ -34,7 +34,8 @@ def lambda_handler(event, context):
             'status': 400,
             'error_msg': 'Booking Date/Time Required.'
         }
-    auth = token = event['Authorization']
+    # auth = token = event['Authorization']
+    token = event['Authorization']
     user_name = token[ind + 1:]
     tickets_table = dynamodb.Table('ticket_data')
     booking_data['ticket_id'] = str(int(time.time()))

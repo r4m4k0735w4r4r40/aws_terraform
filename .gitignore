@@ -2,7 +2,7 @@
 \.terraform
 test.py
 *.zip
-.terraform.lock.hcl
 aws_terraform.iml
 terraform.tfstate
 terraform.tfstate.backup
+.coverage

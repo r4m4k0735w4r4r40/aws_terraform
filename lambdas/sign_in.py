@@ -8,12 +8,9 @@ def lambda_handler(event, context):
     data = event['body-json']
 
     def data_validation(cred):
-        try:
-            if 'user_name' in cred and 'password' in cred:
-                valid = True
-            else:
-                valid = False
-        except:
+        if 'user_name' in cred and 'password' in cred:
+            valid = True
+        else:
             valid = False
         return valid
     if not (data_validation(data)):
