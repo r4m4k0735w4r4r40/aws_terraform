@@ -33,5 +33,5 @@ def post_data(context):
 
 @then("the {end} response is {num}")
 def the_response(context,end, num):
-    assert context.res['status'] == int(num), context.res
-
+    # assert context.res['status'] == int(num), context.res
+    assert False,context.res
