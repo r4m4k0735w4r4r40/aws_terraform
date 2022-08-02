@@ -22,7 +22,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
       - name: Installing the packages
-          run: pip install -r requirements.txt
+        run: pip install -r requirements.txt
       - name: Running unittest
         run: coverage run --source=lambdas -m pytest -s -v
       - name: Checking coverage
