@@ -1,5 +1,4 @@
 from invoke_lambda import *
-import json
 from behave import *
 @given("interface arn '{arn}'")
 def sign_up_in(context,arn):

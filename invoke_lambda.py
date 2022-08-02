@@ -4,9 +4,7 @@ import boto3
 client = boto3.client('lambda')
 
 
-def invoke_lambda(arn, data='User'):
-    data = {'user':data}
-    print(data)
+def invoke_lambda(arn, data={}):
     res = client.invoke(
         FunctionName=arn,
         Payload=json.dumps(data)
