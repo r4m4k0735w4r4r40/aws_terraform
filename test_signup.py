@@ -5,7 +5,7 @@ from lambdas import sign_up
 
 @mock_dynamodb
 def test_signup_lambda():
-    ddb_client = boto3.resource('dynamodb',region_name="ap-south-1")
+    ddb_client = boto3.resource('dynamodb')
     table_name = 'users_data'
     table = ddb_client.create_table(TableName=table_name,
                                     KeySchema=[{'AttributeName': 'user_name','KeyType': 'HASH'}],

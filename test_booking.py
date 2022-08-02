@@ -7,7 +7,7 @@ from boto3.dynamodb.conditions import Attr
 
 @mock_dynamodb
 def test_booking_and_booking_history_lambda():
-    ddb_client = boto3.resource('dynamodb',region_name="ap-south-1")
+    ddb_client = boto3.resource('dynamodb')
     table_name = 'ticket_data'
     table = ddb_client.create_table(TableName=table_name,
                                     KeySchema=[{'AttributeName': 'ticket_id','KeyType': 'HASH'}],
