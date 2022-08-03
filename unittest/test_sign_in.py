@@ -2,6 +2,7 @@ import boto3
 import pytest
 from moto import mock_dynamodb
 from lambdas import sign_in
+import json
 
 @mock_dynamodb
 def test_signup_lambda():
@@ -23,33 +24,41 @@ def test_signup_lambda():
         Item=data
     )
     data = {
-        'body-json':{
-            'user_name':'test',
-            'password':'passwd'
-        }
+        'body': json.dumps(
+            {
+                'user_name':'test',
+                'password':'passwd'
+            }
+        )
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 200,res
+    assert res['statusCode'] == 200,res
     data = {
-        'body-json':{
-            'user_name':'test'
-        }
+        'body': json.dumps(
+            {
+                'user_name':'test'
+            }
+        )
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 400,res
+    assert res['statusCode'] == 400,res
     data = {
-        'body-json':{
-            'user_name':'test',
-            'password':'passwd1'
-        }
+        'body': json.dumps(
+            {
+                'user_name':'test',
+                'password':'passwd1'
+            }
+        )
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 403,res
+    assert res['statusCode'] == 403,res
     data = {
-        'body-json':{
-            'user_name':'test1',
-            'password':'passwd'
-        }
+        'body': json.dumps(
+            {
+                'user_name':'test1',
+                'password':'passwd'
+            }
+        )
     }
     res = sign_in.lambda_handler(data,{})
-    assert res['status'] == 403,res
+    assert res['statusCode'] == 403,res

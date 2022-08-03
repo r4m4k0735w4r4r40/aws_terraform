@@ -66,6 +66,14 @@ resource "aws_lambda_function" "signin_lambda" {
   runtime = "python3.8"
 }
 
-output "signin_arn" {
-  value = aws_lambda_function.signin_lambda.arn
+resource "aws_lambda_permission" "signin_permission" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.signin_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn = "arn:aws:execute-api:${var.region}:${data.aws_caller_identity.account.account_id}:${aws_api_gateway_rest_api.booking.id}/*/${aws_api_gateway_method.signin_method.http_method}${aws_api_gateway_resource.signin_resource.path}"
 }
+
+#output "signin_arn" {
+#  value = aws_lambda_function.signin_lambda.arn
+#}

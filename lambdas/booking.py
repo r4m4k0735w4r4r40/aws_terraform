@@ -7,9 +7,9 @@ def lambda_handler(event, context):
     # TODO implement
     dynamodb = boto3.resource('dynamodb')
     try:
-        if event['Authorization']:
+        if event['headers']['Auth']:
             valid = True
-        token = event['Authorization']
+        token = event['headers']['Auth']
         ind = token.index(':')
         ex_time = int(token[:ind])
         if int(time.time()) > ex_time:
@@ -20,10 +20,18 @@ def lambda_handler(event, context):
         msg = 'Missing authentication token'
     if not valid:
         return {
-            'status': 403,
-            'error_msg': msg
+            "statusCode":403,
+            "headers":{},
+            "body":json.dumps(
+                {
+                    'status': 403,
+                    'error_msg': msg
+                }
+            ),
+            "isBase64Encoded":False
         }
-    booking_data = event['body-json']
+    booking_data = event['body']
+    booking_data = json.loads(booking_data)
     try:
         if booking_data['date'] and booking_data['time']:
             valid = True
@@ -31,11 +39,18 @@ def lambda_handler(event, context):
         valid = False
     if not valid:
         return {
-            'status': 400,
-            'error_msg': 'Booking Date/Time Required.'
+            "statusCode":400,
+            "headers":{},
+            "body":json.dumps(
+                {
+                    'status': 400,
+                    'error_msg': 'Booking Date/Time Required.'
+                }
+            ),
+            "isBase64Encoded":False
         }
-    # auth = token = event['Authorization']
-    token = event['Authorization']
+    # auth = token = event['Auth']
+    token = event['headers']['Auth']
     user_name = token[ind + 1:]
     tickets_table = dynamodb.Table('ticket_data')
     booking_data['ticket_id'] = str(int(time.time()))
@@ -44,7 +59,14 @@ def lambda_handler(event, context):
         Item=booking_data
     )
     return {
-        'status': 200,
-        'succ': 'Bus booked successfully.',
-        'data': booking_data
+        "statusCode":200,
+        "headers":{},
+        "body":json.dumps(
+            {
+                'status': 200,
+                'msg': 'Bus booked successfully.',
+                'data': booking_data
+            }
+        ),
+        "isBase64Encoded":False
     }

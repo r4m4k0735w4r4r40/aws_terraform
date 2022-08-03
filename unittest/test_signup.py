@@ -2,6 +2,7 @@ import boto3
 import pytest
 from moto import mock_dynamodb
 from lambdas import sign_up
+import json
 
 @mock_dynamodb
 def test_signup_lambda():
@@ -15,19 +16,23 @@ def test_signup_lambda():
                                         'WriteCapacityUnits': 5
                                     })
     data = {
-        'body-json':{
-            'user_name':'test',
-            'password':'passwd',
-            'email':'test@gmail.com'
+            'body': json.dumps(
+                {
+                    'user_name':'test',
+                    'password':'passwd',
+                    'email':'test@gmail.com'
+                }
+            )
         }
-    }
     res = sign_up.lambda_handler(data,{})
-    assert res['status'] == 200,res
+    assert res['statusCode'] == 200,res
     data = {
-        'body-json':{
-            'user_name':'test',
-            'password':'passwd'
+            'body': json.dumps(
+                {
+                    'user_name':'test',
+                    'password':'passwd'
+                }
+            )
         }
-    }
     res = sign_up.lambda_handler(data,{})
-    assert res['status'] == 400,res
+    assert res['statusCode'] == 400,res

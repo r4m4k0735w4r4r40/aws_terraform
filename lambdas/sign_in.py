@@ -5,8 +5,8 @@ import botocore
 
 def lambda_handler(event, context):
     # TODO implement
-    data = event['body-json']
-
+    data = event['body']
+    data = json.loads(data)
     def data_validation(cred):
         if 'user_name' in cred and 'password' in cred:
             valid = True
@@ -15,10 +15,16 @@ def lambda_handler(event, context):
         return valid
     if not (data_validation(data)):
         return {
-            'status': 400,
-            'error_msg': 'Username/Password is required.'
+            "statusCode":400,
+            "headers":{},
+            "body":json.dumps(
+                {
+                    'status': 400,
+                    'error_msg': 'Username/Password is required.'
+                }
+            ),
+            "isBase64Encoded":False
         }
-
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('users_data')
     try:
@@ -37,13 +43,27 @@ def lambda_handler(event, context):
         valid = False
     if not valid:
         return {
-            'status': 403,
-            'error_msg' : 'Invalid credentials'
+            "statusCode":403,
+            "headers":{},
+            "body":json.dumps(
+                {
+                    'status': 403,
+                    'error_msg' : 'Invalid credentials'
+                }
+            ),
+            "isBase64Encoded":False
         }
     token = str(int(time.time())+3600)
     token += ":"+data['user_name']
     return {
-        'status': 200,
-        'auth_token': token,
-        'token_expire_time': 3600
+        "statusCode":200,
+        "headers":{},
+        "body":json.dumps(
+            {
+                'status': 200,
+                'auth_token': token,
+                'token_expire_time': 3600
+            }
+        ),
+        "isBase64Encoded":False
     }

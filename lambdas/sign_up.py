@@ -5,7 +5,8 @@ import time
 def lambda_handler(event, context):
     # TODO implement
     # return event
-    data = event['body-json']
+    data = event['body']
+    data = json.loads(data)
     def data_validation(user):
         try:
             if user['user_name'] and user['password'] and user['email']:
@@ -15,9 +16,15 @@ def lambda_handler(event, context):
         return valid
     if not (data_validation(data)):
         return {
-            'status': 400,
-            'data': data,
-            'error_msg': 'Missing required fields.'
+            "statusCode":400,
+            "headers":{},
+            "body":json.dumps(
+                {
+                    'status': 400,
+                    'error_msg': 'Missing required fields.'
+                }
+            ),
+            "isBase64Encoded":False
         }
     id = str(int(time.time()))
     data['id'] = id
@@ -29,10 +36,24 @@ def lambda_handler(event, context):
         )
     except Exception:
         return {
-            'status':500,
-            'error_msg': 'Internal server error.'
+            "statusCode":500,
+            "headers":{},
+            "body":json.dumps(
+                {
+                    'status':500,
+                    'error_msg': 'Internal server error.'
+                }
+            ),
+            "isBase64Encoded":False
         }
     return ({
-        'status': 200,
-        'success': 'User added successfully.'
+        "statusCode":200,
+        "headers":{},
+        "body":json.dumps(
+            {
+                'status': 200,
+                'success': 'User added successfully.'
+            }
+        ),
+        "isBase64Encoded":False
     })

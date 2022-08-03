@@ -6,3 +6,4 @@ aws_terraform.iml
 terraform.tfstate
 terraform.tfstate.backup
 .coverage
+.pytest_cache

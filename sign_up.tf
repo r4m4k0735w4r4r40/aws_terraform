@@ -61,11 +61,15 @@ resource "aws_lambda_function" "signup_lambda" {
 
   runtime = "python3.8"
 }
-data "aws_caller_identity" "current" {}
-output "account" {
-  value = data.aws_caller_identity.current.account_id
+
+resource "aws_lambda_permission" "signup_permission" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.signup_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn = "arn:aws:execute-api:${var.region}:${data.aws_caller_identity.account.account_id}:${aws_api_gateway_rest_api.booking.id}/*/${aws_api_gateway_method.signup_method.http_method}${aws_api_gateway_resource.signup_resource.path}"
 }
 
-output "signup_arn" {
-  value = aws_lambda_function.signup_lambda.arn
-}
+#output "signup_arn" {
+#  value = aws_lambda_function.signup_lambda.arn
+#}

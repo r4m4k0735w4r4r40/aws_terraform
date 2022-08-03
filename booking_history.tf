@@ -66,3 +66,11 @@ resource "aws_lambda_function" "booking_his_lambda" {
 
   runtime = "python3.8"
 }
+
+resource "aws_lambda_permission" "booking_his_permission" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.booking_his_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn = "arn:aws:execute-api:${var.region}:${data.aws_caller_identity.account.account_id}:${aws_api_gateway_rest_api.booking.id}/*/${aws_api_gateway_method.booking_his_method.http_method}${aws_api_gateway_resource.booking_his_resource.path}"
+}
