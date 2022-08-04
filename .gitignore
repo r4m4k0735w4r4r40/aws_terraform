@@ -6,3 +6,4 @@ aws_terraform.iml
 .coverage
 .pytest_cache
 invoke_lambda.py
+.terraform.lock.hcl
