@@ -1,5 +1,5 @@
 name: Deploy Action
-on: [workflow_dispatch,push]
+on: workflow_dispatch
 jobs:
   Running-Unit-Test:
     runs-on: ubuntu-latest
