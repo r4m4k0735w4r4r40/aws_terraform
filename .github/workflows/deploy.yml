@@ -24,7 +24,7 @@ jobs:
       - run: echo "completed"
   Running-Unit-Test:
     needs: Deploy-to-AWS-on-push
-    runs-on: ubuntu-latest
+#    runs-on: ubuntu-latest
     steps:
       - name: Checking out the repo.
         uses: actions/checkout@v3
