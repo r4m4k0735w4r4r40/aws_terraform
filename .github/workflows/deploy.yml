@@ -85,9 +85,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
       - name: Installing the packages
-          shell: bash
-          run: |
-            pip install -r requirements.txt
+        run: pip install -r requirements.txt
       - name: Running behave test
         run: behave
       - name: Terraform Destroy
