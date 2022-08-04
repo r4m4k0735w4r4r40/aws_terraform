@@ -88,6 +88,9 @@ jobs:
         run: pip install -r requirements.txt
       - name: Running behave test
         run: behave
+      - name: Terraform Init
+        id: init
+        run: terraform init
       - name: Terraform Destroy
         id: destroy
         run: terraform destroy -auto-approve
