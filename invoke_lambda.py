@@ -10,8 +10,6 @@ def invoke_lambda(arn, data={}):
         Payload=json.dumps(data)
     )
     return json.load(res['Payload'])
-
-
 # res = invoke_lambda("arn:aws:lambda:ap-south-1:728747466273:function:hello",'Test')
 # print(res)
 # import json

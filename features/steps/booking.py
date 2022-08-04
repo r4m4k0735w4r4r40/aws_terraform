@@ -1,6 +1,19 @@
-from invoke_lambda import *
+# from invoke_lambda import *
 from behave import *
 import json
+import json
+import boto3
+
+client = boto3.client('lambda')
+
+
+def invoke_lambda(arn, data={}):
+    res = client.invoke(
+        FunctionName=arn,
+        Payload=json.dumps(data)
+    )
+    return json.load(res['Payload'])
+
 @given("interface arn '{arn}'")
 def sign_up_in(context,arn):
     context.arn = arn

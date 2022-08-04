@@ -1,5 +1,5 @@
 name: Deploy Action
-on: [push]
+on: [workflow_dispatch,push]
 jobs:
   Deploy-to-AWS-on-push:
     runs-on: ubuntu-latest
@@ -21,11 +21,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
-      - run: echo "completed"
-  Running-Unit-Test:
-    needs: Deploy-to-AWS-on-push
-#    runs-on: ubuntu-latest
-    steps:
       - name: Checking out the repo.
         uses: actions/checkout@v3
       - name: Installing the packages
@@ -38,14 +33,14 @@ jobs:
         run: coverage run --source=lambdas -m pytest -s -v
       - name: Checking coverage
         run: coverage report --fail-under=80
-#      - name: HashiCorp - Setup Terraform
-#        uses: hashicorp/setup-terraform@v2.0.0
-#      - name: Terraform Init
-#        id: init
-#        run: terraform init
-#      - name: Terraform Plan
-#        id: plan
-#        run: terraform plan
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.0
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan
 #      - name: Terraform apply
 #        id: apply
 #        run: terraform apply -auto-approve
@@ -54,4 +49,4 @@ jobs:
 #      - name: Terraform Destroy
 #        id: destroy
 #        run: terraform destroy -auto-approve
-#      - run: echo "Job completed."
+      - run: echo "Job completed."
