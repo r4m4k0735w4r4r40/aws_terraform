@@ -64,7 +64,7 @@ jobs:
         id: apply
         run: terraform apply -auto-approve
   Running-Behave-Tests:
-    needs: Running-Unit-Test
+    needs: [Running-Unit-Test,Deploying-to-AWS]
     runs-on: ubuntu-latest
     steps:
       - name: Checking out the repo.
