@@ -1,6 +1,6 @@
 locals {
-  booking_file_path = "${path.module}/lambdas/booking.py"
-  booking_zip_path = "${path.module}/lambdas/booking.zip"
+  booking_file_path = "${path.module}/../lambdas/booking.py"
+  booking_zip_path = "${path.module}/../lambdas/booking.zip"
 }
 
 resource "aws_iam_role_policy" "booking_policy" {

@@ -54,6 +54,8 @@ jobs:
           aws-region: ap-south-1
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.0
+      - name: Changing directory
+        run: cd terraform_files
       - name: Terraform Init
         id: init
         run: terraform init

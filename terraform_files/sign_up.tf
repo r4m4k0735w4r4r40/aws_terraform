@@ -47,17 +47,17 @@ EOF
 
 data "archive_file" "signup_zip_file" {
   type        = "zip"
-  source_file = "${path.module}/lambdas/sign_up.py"
-  output_path = "${path.module}/lambdas/sign_up.zip"
+  source_file = "${path.module}/../lambdas/sign_up.py"
+  output_path = "${path.module}/../lambdas/sign_up.zip"
 }
 
 resource "aws_lambda_function" "signup_lambda" {
-  filename = "${path.module}/lambdas/sign_up.zip"
+  filename = "${path.module}/../lambdas/sign_up.zip"
   function_name = "signup_lambda"
   role          = aws_iam_role.signup_role.arn
   handler = "sign_up.lambda_handler"
 
-  source_code_hash = filebase64sha256("${path.module}/lambdas/sign_up.py")
+  source_code_hash = filebase64sha256("${path.module}/../lambdas/sign_up.py")
 
   runtime = "python3.8"
 }

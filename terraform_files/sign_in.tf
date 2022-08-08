@@ -1,6 +1,6 @@
 locals {
-  file_path = "${path.module}/lambdas/sign_in.py"
-  zip_path = "${path.module}/lambdas/sign_in.zip"
+  file_path = "${path.module}/../lambdas/sign_in.py"
+  zip_path = "${path.module}/../lambdas/sign_in.zip"
 }
 
 resource "aws_iam_role_policy" "signin_policy" {
