@@ -24,7 +24,7 @@ jobs:
       - name: Installing the packages
         shell: bash
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements1.txt
           pwd
           export PYTHONPATH=$PYTHONPATH:/home/runner/work/aws_terraform/aws_terraform/lambdas
       - name: Running unittest
@@ -83,7 +83,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1
       - name: Installing the packages
-        run: pip install -r requirements.txt
+        run: pip install -r requirements2.txt
       - name: Running behave test
         run: behave
       - run: echo "Job completed."
