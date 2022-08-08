@@ -54,18 +54,13 @@ jobs:
           aws-region: ap-south-1
       - name: HashiCorp - Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.0
-      - name: Changing directory
+      - name: Perform Terraform actions
+        shell: bash
         run: |
           cd terraform_files
-      - name: Terraform Init
-        id: init
-        run: terraform init
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan
-      - name: Terraform apply
-        id: apply
-        run: terraform apply -auto-approve
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
   Running-Behave-Tests:
     needs: [Running-Unit-Test,Deploying-to-AWS]
     runs-on: ubuntu-latest
@@ -91,10 +86,4 @@ jobs:
         run: pip install -r requirements.txt
       - name: Running behave test
         run: behave
-      - name: Terraform Init
-        id: init
-        run: terraform init
-      - name: Terraform Destroy
-        id: destroy
-        run: terraform destroy -auto-approve
       - run: echo "Job completed."
