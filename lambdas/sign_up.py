@@ -3,8 +3,6 @@ import boto3
 import time
 
 def lambda_handler(event, context):
-    # TODO implement
-    # return event
     data = event['body']
     data = json.loads(data)
     def data_validation(user):
