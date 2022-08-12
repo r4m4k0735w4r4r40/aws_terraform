@@ -7,3 +7,4 @@ aws_terraform.iml
 .pytest_cache
 invoke_lambda.py
 .terraform.lock.hcl
+terraform_files/test.tf

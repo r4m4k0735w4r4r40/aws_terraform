@@ -28,7 +28,7 @@ resource "aws_iam_role_policy" "booking_policy" {
     {
             "Effect": "Allow",
             "Action": "logs:CreateLogGroup",
-            "Resource": "arn:aws:logs:ap-south-1:728747466273:*"
+            "Resource": "arn:aws:logs:ap-south-1:${local.account_id}:*"
     },
     {
         "Action" : [
@@ -74,7 +74,7 @@ resource "aws_lambda_function" "booking_lambda" {
   role          = aws_iam_role.booking_role.arn
   handler = "booking.lambda_handler"
 
-  source_code_hash = filebase64sha256(local.booking_file_path)
+  source_code_hash = data.archive_file.booking_zip_file.output_base64sha256
 
   runtime = "python3.8"
 }

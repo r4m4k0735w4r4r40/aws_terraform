@@ -78,7 +78,7 @@ resource "aws_lambda_function" "signup_lambda" {
   role          = aws_iam_role.signup_role.arn
   handler = "sign_up.lambda_handler"
 
-  source_code_hash = filebase64sha256("${path.module}/../lambdas/sign_up.py")
+  source_code_hash = data.archive_file.signup_zip_file.output_base64sha256
 
   runtime = "python3.8"
 }

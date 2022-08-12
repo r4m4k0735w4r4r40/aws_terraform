@@ -74,7 +74,7 @@ resource "aws_lambda_function" "signin_lambda" {
   role          = aws_iam_role.signin_role.arn
   handler = "sign_in.lambda_handler"
 
-  source_code_hash = filebase64sha256(local.file_path)
+  source_code_hash = data.archive_file.signin_zip_file.output_base64sha256
 
   runtime = "python3.8"
 }

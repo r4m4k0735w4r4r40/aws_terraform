@@ -75,7 +75,7 @@ resource "aws_lambda_function" "booking_his_lambda" {
   role          = aws_iam_role.booking_history_role.arn
   handler = "booking_history.lambda_handler"
 
-  source_code_hash = filebase64sha256(local.booking_his_file_path)
+  source_code_hash = data.archive_file.booking_history_zip.output_base64sha256
 
   runtime = "python3.8"
 }

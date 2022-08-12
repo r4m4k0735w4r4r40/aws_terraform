@@ -26,7 +26,3 @@ resource "aws_cloudwatch_log_group" "signin_function" {
     prevent_destroy = false
   }
 }
-
-output "fghf" {
-  value = aws_cloudwatch_log_group.booking_function.arn
-}

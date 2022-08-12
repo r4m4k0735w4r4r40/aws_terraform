@@ -97,12 +97,12 @@ resource "aws_api_gateway_deployment" "dev" {
       aws_api_gateway_resource.signin_resource.id,
       aws_api_gateway_method.signin_method.id,
       aws_api_gateway_integration.signin_integration.id,
-      aws_api_gateway_resource.booking_resource,
-      aws_api_gateway_method.booking_method,
-      aws_api_gateway_integration.booking_integration,
-      aws_api_gateway_resource.booking_his_resource,
-      aws_api_gateway_method.booking_his_method,
-      aws_api_gateway_integration.booking_his_integration
+      aws_api_gateway_resource.booking_resource.id,
+      aws_api_gateway_method.booking_method.id,
+      aws_api_gateway_integration.booking_integration.id,
+      aws_api_gateway_resource.booking_his_resource.id,
+      aws_api_gateway_method.booking_his_method.id,
+      aws_api_gateway_integration.booking_his_integration.id
     ]))
   }
 
