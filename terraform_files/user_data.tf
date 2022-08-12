@@ -10,7 +10,3 @@ resource "aws_dynamodb_table" "user_data-table" {
     type = "S"
   }
 }
-
-output "user_table_arn" {
-  value = aws_dynamodb_table.user_data-table.arn
-}

@@ -11,6 +11,6 @@ resource "aws_dynamodb_table" "tickets_data-table" {
   }
 }
 
-output "tickets_table_arn" {
-  value = aws_dynamodb_table.tickets_data-table.arn
-}
+#output "tickets_table_arn" {
+#  value = aws_dynamodb_table.tickets_data-table.arn
+#}

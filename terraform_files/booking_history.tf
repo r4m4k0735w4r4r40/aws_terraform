@@ -24,7 +24,20 @@ resource "aws_iam_role_policy" "booking_role_policy" {
       ],
       "Effect": "Allow",
       "Resource": "${aws_dynamodb_table.tickets_data-table.arn}"
-    }
+    },
+    {
+            "Effect": "Allow",
+            "Action": "logs:CreateLogGroup",
+            "Resource": "arn:aws:logs:ap-south-1:728747466273:*"
+    },
+    {
+        "Action" : [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        "Effect" : "Allow",
+        "Resource" : "${aws_cloudwatch_log_group.booking_his_function.arn}:*"
+      }
   ]
 }
 EOF

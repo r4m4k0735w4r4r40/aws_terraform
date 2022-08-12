@@ -1,6 +1,4 @@
-# from invoke_lambda import *
 from behave import *
-import json
 import json
 import boto3
 
@@ -14,6 +12,10 @@ def invoke_lambda(arn, data={}):
     )
     return json.load(res['Payload'])
 
+@fixture()
+def before_all(context):
+    context.auth_token = ""
+
 @given("interface arn '{arn}'")
 def sign_up_in(context,arn):
     context.arn = arn
@@ -26,7 +28,10 @@ def post_data(context,uname,passwd,mail):
 @when("given login data '{uname}' '{passwd}'")
 def post_data(context,uname,passwd):
     data = {'user_name': uname, 'password': passwd}
-    context.res = invoke_lambda(context.arn,{'body':json.dumps(data)})
+    res = invoke_lambda(context.arn,{'body':json.dumps(data)})
+    context.res = res
+    # res = json.loads(res['body'])
+    # context.auth_token = res['auth_token']
 
 @when("given booking data '{bid}' '{time}' '{date}'")
 def post_data(context,bid,time,date):
@@ -47,4 +52,4 @@ def post_data(context):
 @then("the {end} response is {num}")
 def the_response(context,end, num):
     assert context.res['statusCode'] == int(num), context.res['statusCode']
-    # assert False,context.res
+    # assert False,context
