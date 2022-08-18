@@ -28,7 +28,7 @@ resource "aws_iam_role_policy" "signin_policy" {
         {
         "Effect": "Allow",
         "Action": "logs:CreateLogGroup",
-            "Resource": "arn:aws:logs:ap-south-1:728747466273:*"
+            "Resource": "arn:aws:logs:ap-south-1:${local.account_id}:*"
     },
     {
         "Action" : [
