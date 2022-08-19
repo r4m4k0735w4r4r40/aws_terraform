@@ -8,7 +8,6 @@ terraform {
     bucket = "my-terraform-state-buckets-1"
     key    = "tf_state"
     region = "ap-south-1"
-    shared_credentials_file = ""
   }
 }
 
