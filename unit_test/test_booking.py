@@ -1,8 +1,7 @@
 import boto3
 import pytest
 from moto import mock_dynamodb
-from lambdas import booking
-from lambdas import booking_history
+from lambdas import booking_history, booking
 import time
 import json
 @pytest.fixture
@@ -33,7 +32,7 @@ def test_booking_and_booking_history_lambda(auth_token):
             }
         )
     }
-    res = booking.lambda_handler(data,{})
+    res = booking.lambda_handler(data, {})
     assert res['statusCode'] == 200,res
     data = {
         'body': json.dumps(
@@ -44,7 +43,7 @@ def test_booking_and_booking_history_lambda(auth_token):
             }
         )
     }
-    res = booking.lambda_handler(data,{})
+    res = booking.lambda_handler(data, {})
     assert res['statusCode'] == 403,res
     data = {
         'headers':{
@@ -58,7 +57,7 @@ def test_booking_and_booking_history_lambda(auth_token):
             }
         )
     }
-    res = booking.lambda_handler(data,{})
+    res = booking.lambda_handler(data, {})
     assert res['statusCode'] == 403,res
     data = {
         'headers': {
@@ -71,7 +70,7 @@ def test_booking_and_booking_history_lambda(auth_token):
             }
         )
     }
-    res = booking.lambda_handler(data,{})
+    res = booking.lambda_handler(data, {})
     assert res['statusCode'] == 400,res
 
     # Testing booking history
