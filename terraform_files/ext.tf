@@ -29,3 +29,10 @@ resource "aws_lambda_function" "test_lambda" {
   source_code_hash = data.archive_file.test_zip_file.output_base64sha256
   runtime = "python3.8"
 }
+
+resource "aws_lambda_permission" "with_sns" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.test_lambda.arn
+  principal     = "sqs.amazonaws.com"
+  source_arn    = aws_sqs_queue.terraform_queue.arn
+}

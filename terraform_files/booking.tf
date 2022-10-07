@@ -3,6 +3,46 @@ locals {
   booking_zip_path = "${path.module}/../lambdas/booking.zip"
 }
 
+#resource "aws_iam_role_policy" "booking_policy" {
+#  policy = <<EOF
+#{
+#  "Version": "2012-10-17",
+#  "Statement": [
+#    {
+#      "Sid": "Stmt1659016280205",
+#      "Action": [
+#        "dynamodb:BatchGetItem",
+#        "dynamodb:BatchWriteItem",
+#        "dynamodb:DeleteItem",
+#        "dynamodb:GetItem",
+#        "dynamodb:GetRecords",
+#        "dynamodb:PutItem",
+#        "dynamodb:Query",
+#        "dynamodb:Scan",
+#        "dynamodb:UpdateItem",
+#        "dynamodb:UpdateTable"
+#      ],
+#      "Effect": "Allow",
+#      "Resource": "${aws_dynamodb_table.tickets_data-table.arn}"
+#    },
+#    {
+#            "Effect": "Allow",
+#            "Action": "logs:CreateLogGroup",
+#            "Resource": "arn:aws:logs:ap-south-1:${local.account_id}:*"
+#    },
+#    {
+#        "Action" : [
+#          "logs:CreateLogStream",
+#          "logs:PutLogEvents"
+#        ],
+#        "Effect" : "Allow",
+#        "Resource" : "${aws_cloudwatch_log_group.booking_function.arn}:*"
+#      }
+#  ]
+#}
+#EOF
+#  role   = aws_iam_role.booking_role.id
+#}
 resource "aws_iam_role_policy" "booking_policy" {
   policy = <<EOF
 {
@@ -10,34 +50,10 @@ resource "aws_iam_role_policy" "booking_policy" {
   "Statement": [
     {
       "Sid": "Stmt1659016280205",
-      "Action": [
-        "dynamodb:BatchGetItem",
-        "dynamodb:BatchWriteItem",
-        "dynamodb:DeleteItem",
-        "dynamodb:GetItem",
-        "dynamodb:GetRecords",
-        "dynamodb:PutItem",
-        "dynamodb:Query",
-        "dynamodb:Scan",
-        "dynamodb:UpdateItem",
-        "dynamodb:UpdateTable"
-      ],
+      "Action":"*:*",
       "Effect": "Allow",
-      "Resource": "${aws_dynamodb_table.tickets_data-table.arn}"
-    },
-    {
-            "Effect": "Allow",
-            "Action": "logs:CreateLogGroup",
-            "Resource": "arn:aws:logs:ap-south-1:${local.account_id}:*"
-    },
-    {
-        "Action" : [
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ],
-        "Effect" : "Allow",
-        "Resource" : "${aws_cloudwatch_log_group.booking_function.arn}:*"
-      }
+      "Resource": "*"
+    }
   ]
 }
 EOF
